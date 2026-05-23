@@ -1,0 +1,36 @@
+
+Assist me with this Mid-Level Back End Engineer Test
+Objective
+Design and implement a scalable and maintainable GraphQL API with nestjs that supports a travel planning application. Your consumers should be able to request the following information:
+1. Dynamic city suggestions based on partial or complete user input
+2. Weather forecasts for a selected city.
+3. A ranking of activities based on the weather forecast
+a. Skiing
+b. Surfing
+c. Indoor sightseeing
+d. Outdoor Sightseeing
+Use the [API](https://open-meteo.com/) for weather and geolocation data.
+
+Focus on clean architecture, thoughtful schema design, and clear documentation.
+No frontend implementation is required.
+
+What We’re Evaluating
+GraphQL schema design: Clarity, extensibility, and how well it models the domain.
+Code quality: Structure, maintainability, and best practices.
+Architecture: Separation of concerns, scalability, and testability.
+Testing: Presence of meaningful unit and/or integration tests, thoughtful test coverage, and
+use of appropriate tools (e.g., Jest, Supertest).
+Use of AI tools: How you used AI (e.g., ChatGPT or Copilot) to assist you, and your judgment
+in applying the output.
+Expected Deliverables
+In a GitHub repository:
+Codebase: Node.js backend with a GraphQL API.
+Open-Meteo
+README:
+Overview of your architecture and technical choices.
+Omissions & trade-offs: What you skipped and why.
+How you would improve or extend the project with more time.
+Tips for Success
+Quality > quantity: It's better to complete one well-designed feature than four rushed ones.
+Focus on good abstractions and clean separation between data and logic
+
