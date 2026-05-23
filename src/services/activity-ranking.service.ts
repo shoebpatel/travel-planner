@@ -60,9 +60,14 @@ export class ActivityRankingService {
     if (snowCodes.includes(weather.weatherCode)) {
       score += 40;
       reasons.push('Fresh snow conditions detected');
-    } else if (weather.weatherCode <= 3 || weather.weatherCode === 45) {
+    } else if (weather.weatherCode <= 3) {
       score += 10;
-      reasons.push('Clear or overcast conditions provide good visibility');
+      reasons.push(
+        'Clear, partly cloudy, or overcast conditions provide workable visibility',
+      );
+    } else if ([45, 48].includes(weather.weatherCode)) {
+      score -= 10;
+      reasons.push('Heavy fog detected; visibility reduced on slopes');
     }
     // Wind considerations
     if (weather.windSpeed < 20) {
