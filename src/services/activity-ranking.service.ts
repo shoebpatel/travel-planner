@@ -80,11 +80,15 @@ export class ActivityRankingService {
   }
 
   private scoreSurfing(weather: WeatherData): ActivityScore {
-    if ([95, 96, 99].includes(weather.weatherCode)) {
+    if (
+      [95, 96, 99].includes(weather.weatherCode) ||
+      weather.temperature < 10
+    ) {
       return {
         activity: ActivityType.SURFING,
         score: 0,
-        reason: 'Severe thunderstorm warning; water activities prohibited',
+        reason:
+          'Severe weather risk or extreme low temperatures make surfing hazardous',
       };
     }
     let score = 0;
@@ -97,6 +101,9 @@ export class ActivityRankingService {
       reasons.push(
         'Excessive wind speeds causing choppy, unsafe water conditions',
       );
+    } else {
+      score -= 20;
+      reasons.push('Insufficient wind to generate surfable breaks');
     }
     if (weather.temperature >= 15 && weather.temperature <= 25) {
       score += 20;
