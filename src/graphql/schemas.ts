@@ -10,67 +10,79 @@ import {
 @ObjectType()
 export class City {
   @Field(() => ID)
-  id: string;
+  id!: string;
 
-  @Field()
-  name: string;
-
-  @Field(() => Float)
-  latitude: number;
+  @Field(() => String)
+  name!: string;
 
   @Field(() => Float)
-  longitude: number;
+  latitude!: number;
 
-  @Field()
-  country: string;
+  @Field(() => Float)
+  longitude!: number;
 
-  @Field({ nullable: true })
+  @Field(() => String)
+  country!: string;
+
+  @Field(() => String, { nullable: true })
   admin1?: string;
 }
 
 @InputType()
 export class CitySuggestionInput {
-  @Field()
-  query: string;
+  @Field(() => String)
+  query!: string;
 
-  @Field({ nullable: true, defaultValue: 10 })
+  @Field(() => Number, { nullable: true, defaultValue: 10 })
   limit?: number;
 }
 
 @ObjectType()
 export class Weather {
   @Field(() => Float)
-  temperature: number;
+  temperature!: number;
 
-  @Field()
-  weatherCode: number;
-
-  @Field(() => Float)
-  windSpeed: number;
+  @Field(() => Number)
+  weatherCode!: number;
 
   @Field(() => Float)
-  precipitation: number;
+  windSpeed!: number;
 
-  @Field()
-  isDay: boolean;
+  @Field(() => Float)
+  precipitation!: number;
 
-  @Field()
-  description: string;
+  @Field(() => Boolean)
+  isDay!: boolean;
+
+  @Field(() => String)
+  description!: string;
 }
 
 @ObjectType()
 export class CityWeather {
-  @Field()
-  city: string;
+  @Field(() => String)
+  city!: string;
 
   @Field(() => Float)
-  latitude: number;
+  latitude!: number;
 
   @Field(() => Float)
-  longitude: number;
+  longitude!: number;
 
   @Field(() => Weather)
-  weather: Weather;
+  weather!: Weather;
+}
+
+@InputType()
+export class CityWeatherInput {
+  @Field(() => String)
+  cityName!: string;
+
+  @Field(() => Number)
+  latitude!: number;
+
+  @Field(() => Number)
+  longitude!: number;
 }
 
 export enum ActivityType {
@@ -88,20 +100,20 @@ registerEnumType(ActivityType, {
 @ObjectType()
 export class ActivityScore {
   @Field(() => ActivityType)
-  activity: ActivityType;
+  activity!: ActivityType;
 
   @Field(() => Float)
-  score: number;
+  score!: number;
 
   @Field()
-  reason: string;
+  reason!: string;
 }
 
 @ObjectType()
 export class RankedActivities {
-  @Field(() => [ActivityScore])
-  activities: ActivityScore[];
-
   @Field(() => ActivityType)
-  bestActivity: ActivityType;
+  bestActivity!: ActivityType;
+
+  @Field(() => [ActivityScore])
+  activities!: ActivityScore[];
 }

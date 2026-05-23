@@ -1,4 +1,4 @@
-export class CityDto {
+export interface CityDto {
   id: string;
   name: string;
   latitude: number;
@@ -7,7 +7,7 @@ export class CityDto {
   admin1?: string;
 }
 
-export class CitySuggestionInput {
+export interface CitySuggestionInput {
   query: string;
-  limit?: number = 10;
+  limit?: number;
 }

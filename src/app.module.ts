@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { GeolocationService } from './services/geolocation.service';
 import { WeatherService } from './services/weather.service';
 import { ActivityRankingService } from './services/activity-ranking.service';
@@ -18,13 +16,11 @@ import { TravelResolver } from './graphql/travel.resolver';
       sortSchema: true,
     }),
   ],
-  controllers: [AppController],
   providers: [
-    AppService,
+    TravelResolver,
     GeolocationService,
     WeatherService,
     ActivityRankingService,
-    TravelResolver,
   ],
 })
 export class AppModule {}

@@ -5,13 +5,13 @@ export enum ActivityType {
   OUTDOOR_SIGHTSEEING = 'OUTDOOR_SIGHTSEEING',
 }
 
-export class ActivityScore {
+export interface ActivityScore {
   activity: ActivityType;
   score: number;
   reason: string;
 }
 
-export class RankedActivities {
+export interface RankedActivities {
   activities: ActivityScore[];
   bestActivity: ActivityType;
 }

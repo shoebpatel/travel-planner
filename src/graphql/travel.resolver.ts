@@ -4,6 +4,7 @@ import {
   City,
   CitySuggestionInput,
   CityWeather,
+  CityWeatherInput,
   RankedActivities,
 } from './schemas';
 import { GeolocationService } from '../services/geolocation.service';
@@ -13,7 +14,6 @@ import { ActivityRankingService } from '../services/activity-ranking.service';
 @Resolver()
 export class TravelResolver {
   private readonly logger = new Logger(TravelResolver.name);
-
   constructor(
     private geolocationService: GeolocationService,
     private weatherService: WeatherService,
@@ -22,49 +22,43 @@ export class TravelResolver {
 
   @Query(() => [City])
   async suggestCities(
-    @Args('input') input: CitySuggestionInput,
+    @Args('input') inputs: CitySuggestionInput,
   ): Promise<City[]> {
     try {
-      return await this.geolocationService.suggestCities(input);
+      return await this.geolocationService.suggestCities(inputs);
     } catch (error) {
-      this.logger.error(`Error suggesting cities: ${error.message}`);
+      this.logger.error(`Error suggesting cities: ${(error as Error).message}`);
       throw error;
     }
   }
 
   @Query(() => CityWeather)
   async getCityWeather(
-    @Args('cityName') cityName: string,
-    @Args('latitude', { type: () => Number }) latitude: number,
-    @Args('longitude', { type: () => Number }) longitude: number,
+    @Args('input') inputs: CityWeatherInput,
   ): Promise<CityWeather> {
     try {
-      return await this.weatherService.getWeather(
-        latitude,
-        longitude,
-        cityName,
-      );
+      return await this.weatherService.getWeather(inputs);
     } catch (error) {
-      this.logger.error(`Error fetching weather: ${error.message}`);
+      this.logger.error(`Error fetching weather: ${(error as Error).message}`);
       throw error;
     }
   }
 
   @Query(() => RankedActivities)
   async rankActivitiesByWeather(
-    @Args('cityName') cityName: string,
-    @Args('latitude', { type: () => Number }) latitude: number,
-    @Args('longitude', { type: () => Number }) longitude: number,
+    @Args('input') inputs: CityWeatherInput,
   ): Promise<RankedActivities> {
     try {
-      const cityWeather = await this.weatherService.getWeather(
-        latitude,
-        longitude,
-        cityName,
+      const cityWeather = await this.weatherService.getWeather(inputs);
+      console.log(
+        '🚀 ~ TravelResolver ~ rankActivitiesByWeather ~ cityWeather:',
+        cityWeather,
       );
       return this.activityRankingService.rankActivities(cityWeather.weather);
     } catch (error) {
-      this.logger.error(`Error ranking activities: ${error.message}`);
+      this.logger.error(
+        `Error ranking activities: ${(error as Error).message}`,
+      );
       throw error;
     }
   }

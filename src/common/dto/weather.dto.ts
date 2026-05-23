@@ -1,4 +1,4 @@
-export class WeatherData {
+export interface WeatherData {
   temperature: number;
   weatherCode: number;
   windSpeed: number;
@@ -7,9 +7,18 @@ export class WeatherData {
   description: string;
 }
 
-export class CityWeatherResponse {
+export interface CityWeatherResponse {
   city: string;
   latitude: number;
   longitude: number;
   weather: WeatherData;
+}
+export interface OpenMeteoWeatherResponse {
+  current: {
+    temperature_2m: number;
+    weather_code: number;
+    wind_speed_10m: number;
+    precipitation: number;
+    is_day: number;
+  };
 }
