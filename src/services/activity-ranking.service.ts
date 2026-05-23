@@ -98,9 +98,17 @@ export class ActivityRankingService {
     }
     let score = 0;
     const reasons: string[] = [];
+    const rainCodes = [61, 63, 65, 80, 81, 82];
+    const hasRoughSeas = rainCodes.includes(weather.weatherCode);
+
     if (weather.windSpeed > 10 && weather.windSpeed < 25) {
       score += 35;
       reasons.push('Wind speed is ideal for generating clean breaks');
+    } else if (weather.windSpeed >= 25 && hasRoughSeas) {
+      score += 60;
+      reasons.push(
+        'High wind with rough seas creates excellent surf conditions',
+      );
     } else if (weather.windSpeed >= 25) {
       score -= 15;
       reasons.push(
@@ -114,8 +122,7 @@ export class ActivityRankingService {
       score += 20;
       reasons.push('Air temperature is comfortable');
     }
-    const rainCodes = [61, 63, 65, 80, 81, 82];
-    if (rainCodes.includes(weather.weatherCode)) {
+    if (hasRoughSeas && weather.windSpeed < 25) {
       score += 15;
       reasons.push('Rain present, but surf breaks remain manageable');
     } else if (weather.weatherCode <= 3) {
